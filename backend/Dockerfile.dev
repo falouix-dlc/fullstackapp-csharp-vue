@@ -1,0 +1,16 @@
+# Dockerfile.dev
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS dev
+
+WORKDIR /app
+
+# Copy csproj and restore dependencies
+COPY ./api/*.csproj ./MyApi/
+RUN dotnet restore ./MyApi/*.csproj
+
+# Copy all source code
+COPY ./api ./MyApi
+
+WORKDIR /app/MyApi
+
+# Start app in watch mode
+CMD ["dotnet", "watch", "run", "--urls", "http://+:5000"]

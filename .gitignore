@@ -1,0 +1,19 @@
+# Node
+frontend/node_modules
+frontend/dist
+
+# .NET
+**/bin
+**/obj
+
+# Docker
+**/*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS
+.vs
+*.user
+*.suo

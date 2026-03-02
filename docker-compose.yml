@@ -1,0 +1,24 @@
+# Docker Compose file for production environment
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile        # Production Dockerfile
+    ports:
+      - "5000:5000"                 # HTTP
+      - "5001:5001"                 # HTTPS
+    environment:
+      DOTNET_ENVIRONMENT: Production
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile        # Production Dockerfile (Vue + Nginx)
+    ports:
+      - "80:80"                     # Nginx serving Vue app
+    environment:
+      VITE_API_URL: "http://backend:5000"  # Backend API URL inside Docker network
+    depends_on:
+      - backend
